@@ -92,7 +92,7 @@
                 let dawX = (event.clientX - rect.left) / scale;
                 let dawY = (event.clientY - rect.top) / scale;
 
-                let time = Math.floor((dawX - 6) / 18);
+                let time = Math.floor((dawX - 6) / 10);
                 let tone = Math.ceil(17 - (dawY / 10));
 
                 if (time >= 0 && time < 16 && tone >= 0 && tone <= 17) {
@@ -158,10 +158,15 @@
                             ctx.fillStyle = "hsl(" + (tone*360/17) + " 70% 30%)";
                         }
                     } else {
-                        ctx.fillStyle = "#222";
+                        
+                        if (time == playbackTime) {
+                            ctx.fillStyle = "#333";
+                        } else {
+                            ctx.fillStyle = "#222";
+                        }
                     }
                     
-                    ctx.fillRect(6 + 18 * time, 170 - 10 * tone, 16, 8);
+                    ctx.fillRect(6 + 10 * time, 170 - 10 * tone, 8, 8);
                 }
             }
 
