@@ -12,8 +12,14 @@
     <script>
 
         async function startAudio(button) {
+            
             await Tone.start();
-            context.lookAhead = 0;
+
+            // https://github.com/Tonejs/Tone.js/wiki/Performance
+            Tone.setContext(new Tone.Context({
+                latencyHint: "interactive",
+                lookAhead: 0
+            }));
             
             button.style.display = "none";
         }
