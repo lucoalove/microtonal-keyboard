@@ -17,6 +17,39 @@
         var timedTones = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []];
         var activeTones = [];
         var daw;
+
+        var playbackInterval;
+        var playbackTime;
+
+        function togglePlayback() {
+
+            if (playbackInterval) {
+                
+                clearInterval(playbackInterval);
+                playbackTime = -1;
+                
+            } else {
+
+                playtimeInterval = setInterval(() => {
+
+                    playbackCursor++;
+
+                    if (playbackTime >= 16) {
+                        playbackTime = 0;
+                    }
+
+                    for (let tone=0; tone<=17; tone++) {
+                        
+                        stopTone(tone);
+
+                        if (timedTones[playbackTime].includes(tone)) {
+                            startTone();
+                        }
+                    }
+                    
+                }, 250);
+            }
+        }
         
         function initDaw() {
 
@@ -174,6 +207,8 @@
     <canvas id="daw" width="300" height="200">
         Your browser does not support canvas elements :(
     </canvas>
+
+    <button type="button" onclick="togglePlayback();">Play/Pause</button>
 
     use keybort
 
