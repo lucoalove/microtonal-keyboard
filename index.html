@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <title>Microtonal Keyboard</title>
     <script src="https://unpkg.com/tone@15.0.4/build/Tone.js"></script>
+
+    <style>
+        body { font-family: sans-serif; }
+    </style>
     
     <script>
 
@@ -13,7 +17,7 @@
 
         const synth = new Tone.Synth().toDestination();
 
-        function init() {
+        async function init() {
 
             await Tone.start();
 
@@ -36,7 +40,6 @@
 </head>
 
 <body onload="init()">
-    <button type="button" onclick="note()">click me!</button>
 
     <a href="https://github.com/lucoalove/microtonal-keyboard/">repo</a>
 
