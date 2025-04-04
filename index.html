@@ -17,12 +17,12 @@
 
         const synth = new Tone.Synth().toDestination();
 
-        async function init() {
+        function init() {
 
-            await Tone.start();
+            document.addEventListener("keydown", async function(event) {
 
-            document.addEventListener("keydown", function(event) {
-
+                await Tone.start();
+                
                 switch (event.key) {
                     "a": synth.triggerAttackRelease(pitch(0), "8n"); break;
                     "s": synth.triggerAttackRelease(pitch(3), "8n"); break;
