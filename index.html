@@ -25,18 +25,14 @@
             daw.addEventListener("click", function(event) {
 
                 let rect = daw.getBoundingClientRect();
-
-                // all these calculations are done in native resolution (300x200)
-                let dawX = event.clientX - rect.left;
-                let dawY = event.clientY - rect.top;
-
-                let time = (dawX - 6) / 18;
-                let tone = 17 - (dawY / 10);
-
-                // then scale up
                 let scale = (rect.right - rect.left) / 300.0;
-                time = Math.floor(time * scale);
-                tone = Math.floor(tone * scale);
+
+                // must translate and scale down to native resolution (300x200) to be in dawSpace
+                let dawX = (event.clientX - rect.left) / scale;
+                let dawY = (event.clientY - rect.top) / scale;
+
+                let time = Math.floor((dawX - 6) / 18);
+                let tone = Math.floor(17 - (dawY / 10));
 
                 console.log(time + " of " + tone);
 
