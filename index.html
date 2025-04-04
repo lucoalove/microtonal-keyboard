@@ -55,11 +55,21 @@
                 
             switch (event.key) {
                 case "a": startTone(0); break;
+                    case "2": startTone(1); break;
+                    case "w": startTone(2); break;
                 case "s": startTone(3); break;
+                    case "3": startTone(4); break;
+                    case "e": startTone(5); break;
                 case "d": startTone(6); break;
                 case "f": startTone(7); break;
+                    case "5": startTone(8); break;
+                    case "t": startTone(9); break;
                 case "g": startTone(10); break;
+                    case "6": startTone(11); break;
+                    case "y": startTone(12); break;
                 case "h": startTone(13); break;
+                    case "7": startTone(14); break;
+                    case "u": startTone(15); break;
                 case "j": startTone(16); break;
                 case "k": startTone(17); break;
             }
@@ -68,14 +78,7 @@
         document.addEventListener("keyup", function(event) {
                 
             switch (event.key) {
-                case "a": stopTone(0); break;
-                case "s": stopTone(3); break;
-                case "d": stopTone(6); break;
-                case "f": stopTone(7); break;
-                case "g": stopTone(10); break;
-                case "h": stopTone(13); break;
-                case "j": stopTone(16); break;
-                case "k": stopTone(17); break;
+                
             }
         });
     </script>
