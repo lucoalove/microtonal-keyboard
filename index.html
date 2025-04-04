@@ -17,7 +17,8 @@
             return 220 * Math.pow(2, degree/17.0);
         }
 
-        function playTone(frequency, duration) {
+        function playTone(frequency) {
+            
             const oscillator = audioContext.createOscillator();
             const gainNode = audioContext.createGain();
             
@@ -29,8 +30,8 @@
             
             // Ensure gain is set to 0 after the duration to prevent hanging notes
             gainNode.gain.setValueAtTime(0, audioContext.currentTime);
-            gainNode.gain.linearRampToValueAtTime(1, audioContext.currentTime + 0.01); // Fade in
-            gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + duration); // Fade out
+            gainNode.gain.linearRampToValueAtTime(1, audioContext.currentTime + 0.03); // Fade in
+            gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + 0.5); // Fade out
             
             oscillator.start(audioContext.currentTime);
             oscillator.stop(audioContext.currentTime + duration);
@@ -39,14 +40,14 @@
         document.addEventListener("keydown", function(event) {
                 
             switch (event.key) {
-                case "a": playTone(pitch(0), 1); break;
-                case "s": playTone(pitch(3), 1); break;
-                case "d": playTone(pitch(6), 1); break;
-                case "f": playTone(pitch(7), 1); break;
-                case "g": playTone(pitch(10), 1); break;
-                case "h": playTone(pitch(13), 1); break;
-                case "j": playTone(pitch(16), 1); break;
-                case "k": playTone(pitch(17), 1); break;
+                case "a": playTone(pitch(0)); break;
+                case "s": playTone(pitch(3)); break;
+                case "d": playTone(pitch(6)); break;
+                case "f": playTone(pitch(7)); break;
+                case "g": playTone(pitch(10)); break;
+                case "h": playTone(pitch(13)); break;
+                case "j": playTone(pitch(16)); break;
+                case "k": playTone(pitch(17)); break;
             }
             
         });
