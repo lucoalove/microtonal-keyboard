@@ -13,7 +13,6 @@
     <script>
 
         const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        const searchParams = new URLSearchParams(window.location.search);
 
         var timedTones = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []];
         var activeTones = [];
@@ -67,12 +66,15 @@
             daw = document.getElementById("daw");
 
             // load in data from url
-            const initData = searchParams.get("d");
+            const initData = new URLSearchParams(window.location.search).get("d");
 
-            for (let i = 0; i < Math.min(initData.length, 16 * 18); i++) {
+            if (initData) {
                 
-                if (initData[i] == "1") {
-                    timedTones[Math.floor(i / 18)].push(i % 18);
+                for (let i = 0; i < Math.min(initData.length, 16 * 18); i++) {
+                    
+                    if (initData[i] == "1") {
+                        timedTones[Math.floor(i / 18)].push(i % 18);
+                    }
                 }
             }
 
@@ -117,7 +119,7 @@
                     data += timedTones[Math.floor(i / 18)].includes(i % 18) ? "1" : "0";
                 }
 
-                searchParams.set("d", data);
+                window.history.pushState({}, "", "?d=" + data);
 
                 // repaint
                 repaintDaw();
