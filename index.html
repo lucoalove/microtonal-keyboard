@@ -204,12 +204,16 @@
 
         document.addEventListener("keydown", function(event) {
 
+            // no repeat keystrokes when holding down
+            if (event.repeat != undefined && event.repeat) { return; }
+
             if (event.key == " ") {
                 togglePlayback();
                 return;
             }
 
-            if ((event.repeat != undefined && event.repeat) || playbackInterval) { return; }
+            // disallow keyboarding during playback
+            if (playbackInterval) { return; }
                 
             switch (event.key) {
                 case "a": startTone(0); break;
