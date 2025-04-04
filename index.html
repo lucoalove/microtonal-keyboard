@@ -17,31 +17,28 @@
 
         const synth = new Tone.Synth().toDestination();
 
-        function init() {
-
-            document.addEventListener("keydown", async function(event) {
-
-                await Tone.start();
+        document.addEventListener("keydown", function(event) {
                 
-                switch (event.key) {
-                    case "a": synth.triggerAttackRelease(pitch(0), "8n"); break;
-                    case "s": synth.triggerAttackRelease(pitch(3), "8n"); break;
-                    case "d": synth.triggerAttackRelease(pitch(6), "8n"); break;
-                    case "f": synth.triggerAttackRelease(pitch(7), "8n"); break;
-                    case "g": synth.triggerAttackRelease(pitch(10), "8n"); break;
-                    case "h": synth.triggerAttackRelease(pitch(13), "8n"); break;
-                    case "j": synth.triggerAttackRelease(pitch(16), "8n"); break;
-                    case "k": synth.triggerAttackRelease(pitch(17), "8n"); break;
-                }
-                
-            });
-        }
+            switch (event.key) {
+                case "a": synth.triggerAttackRelease(pitch(0), "8n"); break;
+                case "s": synth.triggerAttackRelease(pitch(3), "8n"); break;
+                case "d": synth.triggerAttackRelease(pitch(6), "8n"); break;
+                case "f": synth.triggerAttackRelease(pitch(7), "8n"); break;
+                case "g": synth.triggerAttackRelease(pitch(10), "8n"); break;
+                case "h": synth.triggerAttackRelease(pitch(13), "8n"); break;
+                case "j": synth.triggerAttackRelease(pitch(16), "8n"); break;
+                case "k": synth.triggerAttackRelease(pitch(17), "8n"); break;
+            }
+            
+        });
     </script>
 </head>
 
-<body onload="init()">
+<body>
 
     <a href="https://github.com/lucoalove/microtonal-keyboard/">repo</a>
+
+    <button type="button" onclick="await Tone.start(); this.display = 'none';">Click to start audio</button>
 
     <p><small><strong>Made with <a href="https://tonejs.github.io/">ToneJS</a></strong></small></p>
 </body>
