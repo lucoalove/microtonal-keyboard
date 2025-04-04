@@ -185,7 +185,7 @@
         function testTone(degree) {
 
             const oscillator = new OscillatorNode(audioContext, {
-                type: "square" // sine, square, triangle, sawtooth
+                type: "triangle" // sine, square, triangle, sawtooth
             });
             const gainNode = audioContext.createGain();
 
@@ -209,7 +209,7 @@
             if (activeTones[degree]) { return; }
 
             const oscillator = new OscillatorNode(audioContext, {
-                type: "square" // sine, square, triangle, sawtooth
+                type: "triangle" // sine, square, triangle, sawtooth
             });
             const gainNode = audioContext.createGain();
 
@@ -314,7 +314,13 @@
         Your browser does not support canvas elements :(
     </canvas>
 
-    use keybort numbers/letters for notes. space to Play/Pause
+    <p>use keybort numbers/letters for notes. space to Play/Pause</p>
+    <p>planned:</p>
+    <ul>
+        <li>multiple tracks (lead, chord, bass) you can switch between</li>
+        <li>more octaves</li>
+        <li>longer songs</li>
+    </ul>
 
 </body>
 
