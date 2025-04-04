@@ -30,7 +30,9 @@
 
             if (!daw.getContext) { return; }
             const ctx = daw.getContext("2d");
-            ctx.clearRect(0, 0, daw.width, daw.height);
+
+            ctx.fillStyle = "black";
+            ctx.fillRect(0, 0, daw.width, daw.height);
 
             // https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial
             
@@ -38,7 +40,7 @@
 
                 if (!item) { return; }
                 
-                ctx.fillStyle = "hsl(" + index * 20 + ", 100%, 50%)";
+                ctx.fillStyle = "hsl(" + (index*360/17) + ", 100%, 50%)";
                 ctx.fillRect(0, index * 10, 4, 8);
             });
         }
@@ -46,7 +48,7 @@
         function startTone(degree) {
 
             const oscillator = new OscillatorNode(audioContext, {
-                type: "sawtooth" // sine, square, triangle, sawtooth
+                type: "sine" // sine, square, triangle, sawtooth
             });
             const gainNode = audioContext.createGain();
 
