@@ -29,6 +29,8 @@
                 
                 playbackInterval = null;
                 playbackTime = -1;
+
+                repaintDaw();
                 
             } else {
 
@@ -171,6 +173,7 @@
             if (event.repeat != undefined && event.repeat) { return; }
                 
             switch (event.key) {
+                case " ": togglePlayback(); break;
                 case "a": startTone(0); break;
                     case "2": startTone(1); break;
                     case "w": startTone(2); break;
@@ -226,9 +229,7 @@
         Your browser does not support canvas elements :(
     </canvas>
 
-    <button type="button" onclick="togglePlayback();">Play/Pause</button>
-
-    use keybort
+    use keybort numbers/letters for notes. space to Play/Pause
 
 </body>
 
