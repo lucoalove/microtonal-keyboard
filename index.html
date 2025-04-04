@@ -19,11 +19,9 @@
         
         function startTone(degree) {
 
-            const oscillator = audioContext.createOscillator();
-            new AnalyserNode(audioCtx, {
+            const oscillator = new OscillatorNode(audioContext, {
                 type: "sawtooth" // sine, square, triangle, sawtooth
             });
-                        
             const gainNode = audioContext.createGain();
 
             oscillator.connect(gainNode);
