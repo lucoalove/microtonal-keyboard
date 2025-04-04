@@ -204,10 +204,14 @@
 
         document.addEventListener("keydown", function(event) {
 
+            if (event.key == " ") {
+                togglePlayback();
+                return;
+            }
+
             if ((event.repeat != undefined && event.repeat) || playbackInterval) { return; }
                 
             switch (event.key) {
-                case " ": togglePlayback(); break;
                 case "a": startTone(0); break;
                     case "2": startTone(1); break;
                     case "w": startTone(2); break;
