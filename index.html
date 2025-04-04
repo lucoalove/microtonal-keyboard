@@ -237,6 +237,9 @@
         });
 
         document.addEventListener("keyup", function(event) {
+
+            // disallow keyboarding during playback
+            if (playbackInterval) { return; }
                 
             switch (event.key) {
                 case "a": stopTone(0); break;
