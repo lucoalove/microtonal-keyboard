@@ -7,33 +7,29 @@
     
     <script>
 
-        async function note() {
-            
-            await Tone.start();
-            
-            const synth = new Tone.Synth().toDestination();
-            const now = Tone.now();
-            
-            synth.triggerAttackRelease(220 * Math.pow(2, 0/17.0), "8n", now);
-            synth.triggerAttackRelease(220 * Math.pow(2, 3/17.0), "8n", now+0.5);
-            synth.triggerAttackRelease(220 * Math.pow(2, 6/17.0), "8n", now+1);
-            synth.triggerAttackRelease(220 * Math.pow(2, 7/17.0), "8n", now+1.5);
-            synth.triggerAttackRelease(220 * Math.pow(2, 10/17.0), "8n", now+2);
-            synth.triggerAttackRelease(220 * Math.pow(2, 13/17.0), "8n", now+2.5);
-            synth.triggerAttackRelease(220 * Math.pow(2, 16/17.0), "8n", now+3);
-            synth.triggerAttackRelease(220 * Math.pow(2, 17/17.0), "8n", now+3.5);
+        function pitch(degree) {
+            return 220 * Math.pow(2, degree/17.0);
         }
+
+        const synth = new Tone.Synth().toDestination();
 
         function init() {
 
+            await Tone.start();
+
             document.addEventListener("keydown", function(event) {
-                if(event.keyCode == 37) {
-                    alert('Left was pressed');
+
+                switch (event.key) {
+                    "a": synth.triggerAttackRelease(pitch(0), "8n"); break;
+                    "s": synth.triggerAttackRelease(pitch(3), "8n"); break;
+                    "d": synth.triggerAttackRelease(pitch(6), "8n"); break;
+                    "f": synth.triggerAttackRelease(pitch(7), "8n"); break;
+                    "g": synth.triggerAttackRelease(pitch(10), "8n"); break;
+                    "h": synth.triggerAttackRelease(pitch(13), "8n"); break;
+                    "j": synth.triggerAttackRelease(pitch(16), "8n"); break;
+                    "k": synth.triggerAttackRelease(pitch(17), "8n"); break;
                 }
-                else if(event.keyCode == 39) {
-                    alert('Right was pressed');
-                }
-                console.log(event.key + " " + event.keyCode);
+                
             });
         }
     </script>
