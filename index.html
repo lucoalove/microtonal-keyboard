@@ -11,6 +11,11 @@
     
     <script>
 
+        async function startAudio(button) {
+            await Tone.start();
+            button.display = "none";
+        }
+
         function pitch(degree) {
             return 220 * Math.pow(2, degree/17.0);
         }
@@ -38,7 +43,7 @@
 
     <a href="https://github.com/lucoalove/microtonal-keyboard/">repo</a>
 
-    <button type="button" onclick="await Tone.start(); this.display = 'none';">Click to start audio</button>
+    <button type="button" onclick="startAudio(this);">Click to start audio</button>
 
     <p><small><strong>Made with <a href="https://tonejs.github.io/">ToneJS</a></strong></small></p>
 </body>
