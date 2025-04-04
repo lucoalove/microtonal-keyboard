@@ -144,6 +144,8 @@
 
         function stopTone(degree) {
 
+            if (!activeTones[degree]) { return; }
+
             const oscillator = activeTones[degree][0];
             const gainNode = activeTones[degree][1];
             
