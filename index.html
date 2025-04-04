@@ -13,6 +13,7 @@
     <script>
 
         const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const searchParams = new URLSearchParams(window.location.search);
 
         var timedTones = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []];
         var activeTones = [];
@@ -65,6 +66,21 @@
 
             daw = document.getElementById("daw");
 
+            // load in data from url
+            const initData = searchParams.get("d");
+
+            for (let i = 0; i < Math.min(initData.length, 16 * 18); i++) {
+                
+                if (initData[i] == "1") {
+                    timedTones[Math.floor(i / 18)].push(i % 18);
+                }
+            }
+
+            // var array = new Uint8Array(100);
+            // array[10] = 256;
+            // array[10] === 0 // true
+
+            // set up click functionality
             daw.addEventListener("click", function(event) {
 
                 let rect = daw.getBoundingClientRect();
@@ -92,7 +108,18 @@
                         }
                     }
                 }
-                
+
+                // update url
+                let data = "";
+
+                for (let i = 0; i < 16 * 18; i++) {
+
+                    data += timedTones[Math.floor(i / 18)].includes(i % 18) ? "1" : "0";
+                }
+
+                searchParams.set("d", data);
+
+                // repaint
                 repaintDaw();
             });
 
