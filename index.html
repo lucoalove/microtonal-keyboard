@@ -14,22 +14,21 @@
         const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
         var activeTones = [];
-        
-        for (let degree=0; degree<=17; degree++) {
-            activeTones.push(null);
-        }
 
         
         
         function startTone(degree) {
 
             const oscillator = audioContext.createOscillator();
+            new AnalyserNode(audioCtx, {
+                type: "sawtooth" // sine, square, triangle, sawtooth
+            });
+                        
             const gainNode = audioContext.createGain();
 
             oscillator.connect(gainNode);
             gainNode.connect(audioContext.destination);
             
-            oscillator.type = "sine"; // sine, square, triangle, sawtooth
             oscillator.frequency.value = 220 * Math.pow(2, degree/17.0);
 
             activeTones[degree] = [ oscillator, gainNode ];
