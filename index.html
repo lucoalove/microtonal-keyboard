@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <title>Microtonal Keyboard</title>
     <script src="https://unpkg.com/tone@15.0.4/build/Tone.js"></script>
-
-<!--     https://tonejs.github.io/ -->
     
     <script>
 
-        function note() {
+        async function note() {
+            
+            await Tone.start();
+            
             const synth = new Tone.Synth().toDestination();
             const now = Tone.now();
             
@@ -22,11 +23,28 @@
             synth.triggerAttackRelease(220 * Math.pow(2, 16/17.0), "8n", now+3);
             synth.triggerAttackRelease(220 * Math.pow(2, 17/17.0), "8n", now+3.5);
         }
+
+        function init() {
+
+            document.addEventListener("keydown", function(event) {
+                if(event.keyCode == 37) {
+                    alert('Left was pressed');
+                }
+                else if(event.keyCode == 39) {
+                    alert('Right was pressed');
+                }
+                console.log(event.key + " " + event.keyCode);
+            });
+        }
     </script>
 </head>
 
-<body>
+<body onload="init()">
     <button type="button" onclick="note()">click me!</button>
+
+    <a href="https://github.com/lucoalove/microtonal-keyboard/">repo</a>
+
+    <p><small><strong>Made with <a href="https://tonejs.github.io/">ToneJS</a></strong></small></p>
 </body>
 
 </html>
