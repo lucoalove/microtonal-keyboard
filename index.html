@@ -44,12 +44,19 @@
                 ctx.fillStyle = "hsl(" + (index*360/17) + " 100% 50%)";
                 ctx.fillRect(0, index * 10, 4, 8);
             });
+
+            for (let tone=0; tone<=17; tone++) {
+                for (let time=0; time<16; time++) {
+                    ctx.fillStyle = "grey";
+                    ctx.fillRect(6 + 18 * time, tone * 10, 16, 8);
+                }
+            }
         }
         
         function startTone(degree) {
 
             const oscillator = new OscillatorNode(audioContext, {
-                type: "sine" // sine, square, triangle, sawtooth
+                type: "square" // sine, square, triangle, sawtooth
             });
             const gainNode = audioContext.createGain();
 
