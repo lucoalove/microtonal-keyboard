@@ -142,8 +142,6 @@
             
             oscillator.frequency.value = 220 * Math.pow(2, degree/17.0);
 
-            activeTones[degree] = [ oscillator, gainNode ];
-
             
             
             gainNode.gain.setValueAtTime(0, audioContext.currentTime);
@@ -151,6 +149,10 @@
             oscillator.start(audioContext.currentTime);
 
             repaintDaw();
+
+            // ensure this tone, if it already existed, gets deleted before we replace it
+            stopTone(degree);
+            activeTones[degree] = [ oscillator, gainNode ];
         }
 
         function stopTone(degree) {
