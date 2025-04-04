@@ -165,8 +165,12 @@
                             ctx.fillStyle = "#222";
                         }
                     }
-                    
-                    ctx.fillRect(6 + 10 * time, 170 - 10 * tone, 8, 8);
+
+                    if (timedTones[time+1] && timedTones[time+1].includes(tone)) {
+                        ctx.fillRect(6 + 10 * time, 170 - 10 * tone, 10, 8); // connect to following tone if possible
+                    } else {
+                        ctx.fillRect(6 + 10 * time, 170 - 10 * tone, 8, 8);
+                    }
                 }
             }
 
