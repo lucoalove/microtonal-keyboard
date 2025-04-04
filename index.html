@@ -76,10 +76,16 @@
                 if (time >= 0 && time < 16 && tone >= 0 && tone <= 17) {
                     
                     if (timedTones[time].includes(tone)) {
+                        
                         timedTones[time].splice(timedTones[time].indexOf(tone), 1);
+                        
                     } else {
+                        
                         timedTones[time].push(tone);
-                        testTone(tone);
+
+                        if (!playbackInterval) { // play a tone when placing this tone (if not doing playback)
+                            testTone(tone);
+                        }
                     }
                 }
                 
@@ -171,8 +177,7 @@
             gainNode.gain.linearRampToValueAtTime(1, audioContext.currentTime + 0.02);
             oscillator.start(audioContext.currentTime);
 
-            // ensure this tone, if it already existed, gets deleted before we replace it
-            stopTone(degree);
+            // stopTone(degree); // ensure this tone, if it already existed, gets deleted before we replace it (only really needed for keyboard-playback concurrent playing)
             activeTones[degree] = [ oscillator, gainNode ];
             
             repaintDaw();
@@ -195,7 +200,7 @@
 
         document.addEventListener("keydown", function(event) {
 
-            if (event.repeat != undefined && event.repeat) { return; }
+            if ((event.repeat != undefined && event.repeat) || playbackInterval) { return; }
                 
             switch (event.key) {
                 case " ": togglePlayback(); break;
