@@ -19,7 +19,7 @@
         var daw;
 
         var playbackInterval = null;
-        var playbackTime = 0;
+        var playbackTime = -1;
 
         function togglePlayback() {
 
@@ -30,7 +30,7 @@
                 
             } else {
 
-                playtimeInterval = setInterval(() => {
+                playbackInterval = setInterval(() => {
 
                     playbackTime++;
 
