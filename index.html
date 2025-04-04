@@ -14,6 +14,7 @@
 
         const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
+        var timedTones = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []];
         var activeTones = [];
         var daw;
         
@@ -22,8 +23,23 @@
             daw = document.getElementById("daw");
 
             daw.addEventListener("click", function(event) {
-                // event.clientX - daw.clientX
-                // repaintDaw();
+                
+                let dawX = event.clientX - daw.clientX;
+                let dawY = event.clientY - daw.clientY;
+
+                let time = (dawX - 6) / 18;
+                let tone = 17 - (dawY / 10);
+
+                if (time >= 0 && time < 16 && tone >= 0 && tone <= 17) {
+                    
+                    if (timedTones[time].includes(tone)) {
+                        timedTones[time].remove(tone);
+                    } else {
+                        timedTones[time].push(tone);
+                    }
+                }
+                
+                repaintDaw();
             });
         }
 
@@ -47,7 +63,13 @@
 
             for (let tone=0; tone<=17; tone++) {
                 for (let time=0; time<16; time++) {
-                    ctx.fillStyle = "#222";
+
+                    if (timedTones[time].includes(tone)) {
+                        ctx.fillStyle = "hsl(" + (tone*360/17) + " 70% 30%)";
+                    } else {
+                        ctx.fillStyle = "#222";
+                    }
+                    
                     ctx.fillRect(6 + 18 * time, 170 - 10 * tone, 16, 8);
                 }
             }
@@ -138,6 +160,8 @@
                 case "k": stopTone(17); break;
             }
         });
+
+        repaintDaw();
     </script>
 </head>
 
