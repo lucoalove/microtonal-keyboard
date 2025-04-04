@@ -26,6 +26,8 @@
             if (playbackInterval) {
                 
                 clearInterval(playbackInterval);
+                
+                playbackInterval = null;
                 playbackTime = -1;
                 
             } else {
@@ -86,20 +88,23 @@
 
         async function repaintDaw() {
 
+            // https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial
+
             if (!daw.getContext) { return; }
             const ctx = daw.getContext("2d");
 
+            // clear screen
             ctx.fillStyle = "black";
             ctx.fillRect(0, 0, daw.width, daw.height);
 
-            // https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial
-            
+            // light up on the left when a tone is active (being played)
             activeTones.forEach((item, tone) => {
                 
                 ctx.fillStyle = "hsl(" + (tone*360/17) + " 100% 50%)";
                 ctx.fillRect(0, 170 - 10 * tone, 4, 8);
             });
 
+            // timed tone cells
             for (let tone=0; tone<=17; tone++) {
                 for (let time=0; time<16; time++) {
 
@@ -117,6 +122,10 @@
                     ctx.fillRect(6 + 18 * time, 170 - 10 * tone, 16, 8);
                 }
             }
+
+            // playback cursor
+            ctx.fillStyle = "white";
+            ctx.fillRect(6 + 18 * playbackTime, 180, 16, 8);
         }
         
         function startTone(degree) {
