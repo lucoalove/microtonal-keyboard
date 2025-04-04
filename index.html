@@ -30,14 +30,13 @@
 
             if (!daw.getContext) { return; }
             const ctx = daw.getContext("2d");
+            ctx.clearRect(0, 0, daw.width, daw.height);
 
             // https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial
             
             activeTones.forEach((item, index) => {
 
-                ctx.clearRect(0, 0, daw.width, daw.height);
-
-                // if (item == null) { return; }
+                if (!item) { return; }
                 
                 ctx.fillStyle = "rgb(200 0 0)";
                 ctx.fillRect(10, 0 + index * 10, 50, 5 + index * 10);
