@@ -11,22 +11,36 @@
     
     <script>
 
-        function initDaw() {
-            
-            const canvas = document.getElementById("daw");
-
-            if (canvas.getContext) {
-                const ctx = canvas.getContext("2d");
-                ctx.fillStyle = "rgb(200 0 0)";
-                ctx.fillRect(10, 10, 50, 50);
-            }
-
-            // should be done in timer loop or something
-        }
-
         const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
         var activeTones = [];
+        var daw;
+        
+        function initDaw() {
+
+            daw = document.getElementById("daw");
+
+            daw.addEventListener("click", function(event) {
+                console.log(event);
+                //repaintDaw();
+            });
+        }
+
+        async function repaintDaw() {
+
+            if (!daw.getContext) { return; }
+            const ctx = daw.getContext("2d");
+
+            // https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial
+            
+            activeTones.forEach((item, index) => {
+
+                if (!item) { return; }
+                
+                ctx.fillStyle = "rgb(200 0 0)";
+                ctx.fillRect(10, 10 + index * 20, 50, 20 + index * 20);
+            });
+        }
         
         function startTone(degree) {
 
@@ -47,6 +61,8 @@
             gainNode.gain.setValueAtTime(0, audioContext.currentTime);
             gainNode.gain.linearRampToValueAtTime(1, audioContext.currentTime + 0.02);
             oscillator.start(audioContext.currentTime);
+
+            repaintDaw();
         }
 
         function stopTone(degree) {
@@ -56,13 +72,15 @@
             
             gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + 0.3);
             oscillator.stop(audioContext.currentTime + 0.3);
+
+            activeTones[degree] = null;
+
+            repaintDaw();
         }
 
         document.addEventListener("keydown", function(event) {
 
-            if (event.repeat != undefined && event.repeat) {
-                return;
-            }
+            if (event.repeat != undefined && event.repeat) { return; }
                 
             switch (event.key) {
                 case "a": startTone(0); break;
