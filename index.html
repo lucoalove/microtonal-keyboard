@@ -37,17 +37,17 @@
 
             // https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial
             
-            activeTones.forEach((item, index) => {
+            activeTones.forEach((item, tone) => {
 
                 if (!item) { return; }
                 
-                ctx.fillStyle = "hsl(" + (index*360/17) + " 100% 50%)";
+                ctx.fillStyle = "hsl(" + (tone*360/17) + " 100% 50%)";
                 ctx.fillRect(0, 170 - 10 * tone, 4, 8);
             });
 
             for (let tone=0; tone<=17; tone++) {
                 for (let time=0; time<16; time++) {
-                    ctx.fillStyle = "#111";
+                    ctx.fillStyle = "#222";
                     ctx.fillRect(6 + 18 * time, 170 - 10 * tone, 16, 8);
                 }
             }
