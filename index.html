@@ -27,7 +27,7 @@
             oscillator.type = "sine"; // sine, square, triangle, sawtooth
             oscillator.frequency.value = 220 * Math.pow(2, degree/17.0);
             
-            tones.push({ oscillator, gainNode });
+            tones.push([ oscillator, gainNode ]);
         }
 
         
