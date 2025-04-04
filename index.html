@@ -23,12 +23,20 @@
             daw = document.getElementById("daw");
 
             daw.addEventListener("click", function(event) {
-                
-                let dawX = event.clientX - daw.getBoundingClientRect().left;
-                let dawY = event.clientY - daw.getBoundingClientRect().top;
 
-                let time = Math.floor((dawX - 6) / 18);
-                let tone = Math.floor(17 - (dawY / 10));
+                let rect = daw.getBoundingClientRect();
+
+                // all these calculations are done in native resolution (300x200)
+                let dawX = event.clientX - rect.left;
+                let dawY = event.clientY - rect.top;
+
+                let time = (dawX - 6) / 18;
+                let tone = 17 - (dawY / 10);
+
+                // then scale up
+                let scale = (rect.right - rect.left) / 300.0;
+                time = Math.floor(time * scale);
+                tone = Math.floor(tone * scale);
 
                 console.log(time + " of " + tone);
 
