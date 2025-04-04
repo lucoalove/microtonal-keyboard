@@ -18,8 +18,8 @@
         var activeTones = [];
         var daw;
 
-        var playbackInterval;
-        var playbackTime;
+        var playbackInterval = null;
+        var playbackTime = 0;
 
         function togglePlayback() {
 
@@ -32,7 +32,7 @@
 
                 playtimeInterval = setInterval(() => {
 
-                    playbackCursor++;
+                    playbackTime++;
 
                     if (playbackTime >= 16) {
                         playbackTime = 0;
