@@ -13,11 +13,7 @@
 
         const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
-        function pitch(degree) {
-            return 220 * Math.pow(2, degree/17.0);
-        }
-
-        function playTone(frequency) {
+        function playTone(degree) {
             
             const oscillator = audioContext.createOscillator();
             const gainNode = audioContext.createGain();
@@ -25,29 +21,30 @@
             oscillator.connect(gainNode);
             gainNode.connect(audioContext.destination);
             
-            oscillator.type = 'sine'; // You can change the type: sine, square, triangle, sawtooth
-            oscillator.frequency.value = frequency; // Frequency in Hz
+            oscillator.type = "square"; // You can change the type: sine, square, triangle, sawtooth
+            oscillator.frequency.value = 220 * Math.pow(2, degree/17.0);
             
-            // Ensure gain is set to 0 after the duration to prevent hanging notes
+            // ensure gain is set to 0 after the duration to prevent hanging notes
             gainNode.gain.setValueAtTime(0, audioContext.currentTime);
-            gainNode.gain.linearRampToValueAtTime(1, audioContext.currentTime + 0.03); // Fade in
-            gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + 0.5); // Fade out
+            gainNode.gain.linearRampToValueAtTime(1, audioContext.currentTime + 0.02);
+            gainNode.gain.linearRampToValueAtTime(1, audioContext.currentTime + 0.2);
+            gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + 0.3);
             
             oscillator.start(audioContext.currentTime);
-            oscillator.stop(audioContext.currentTime + duration);
+            oscillator.stop(audioContext.currentTime + 0.3);
         }
 
         document.addEventListener("keydown", function(event) {
                 
             switch (event.key) {
-                case "a": playTone(pitch(0)); break;
-                case "s": playTone(pitch(3)); break;
-                case "d": playTone(pitch(6)); break;
-                case "f": playTone(pitch(7)); break;
-                case "g": playTone(pitch(10)); break;
-                case "h": playTone(pitch(13)); break;
-                case "j": playTone(pitch(16)); break;
-                case "k": playTone(pitch(17)); break;
+                case "a": playTone(0); break;
+                case "s": playTone(3); break;
+                case "d": playTone(6); break;
+                case "f": playTone(7); break;
+                case "g": playTone(10); break;
+                case "h": playTone(13); break;
+                case "j": playTone(16); break;
+                case "k": playTone(17); break;
             }
             
         });
