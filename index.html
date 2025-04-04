@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Microtonal Keyboard</title>
+    <script src="http://unpkg.com/tone"></script>
+    
+    <script>
+
+        function note() {
+            const synth = new Tone.Synth().toDestination();
+            const now = Tone.now();
+            
+            synth.triggerAttackRelease(220 * Math.pow(2, 0/17.0), "8n", now);
+            synth.triggerAttackRelease(220 * Math.pow(2, 3/17.0), "8n", now+0.5);
+            synth.triggerAttackRelease(220 * Math.pow(2, 6/17.0), "8n", now+1);
+            synth.triggerAttackRelease(220 * Math.pow(2, 7/17.0), "8n", now+1.5);
+            synth.triggerAttackRelease(220 * Math.pow(2, 10/17.0), "8n", now+2);
+            synth.triggerAttackRelease(220 * Math.pow(2, 13/17.0), "8n", now+2.5);
+            synth.triggerAttackRelease(220 * Math.pow(2, 16/17.0), "8n", now+3);
+            synth.triggerAttackRelease(220 * Math.pow(2, 17/17.0), "8n", now+3.5);
+        }
+    </script>
+</head>
+
+<body>
+    <button type="button" onclick="note()">click me!</button>
+</body>
+
+</html>
