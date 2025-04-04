@@ -40,7 +40,7 @@
 
                 if (!item) { return; }
                 
-                ctx.fillStyle = "hsl(" + (index*360/17) + ", 100%, 50%)";
+                ctx.fillStyle = "hsl(" + (index*360/17) + " 100% 50%)";
                 ctx.fillRect(0, index * 10, 4, 8);
             });
         }
@@ -137,7 +137,7 @@
 
     <a href="https://github.com/lucoalove/microtonal-keyboard/">repo</a>
 
-    <canvas id="daw" width="300" height="300">
+    <canvas id="daw" width="300" height="200" style="width: 900px;">
         Your browser does not support canvas elements :(
     </canvas>
 
