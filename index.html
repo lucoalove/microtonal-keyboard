@@ -24,8 +24,8 @@
 
             daw.addEventListener("click", function(event) {
                 
-                let dawX = event.clientX;// - daw.getBoundingClientRect().left;
-                let dawY = event.clientY;// - daw.getBoundingClientRect().top;
+                let dawX = event.clientX - daw.getBoundingClientRect().left;
+                let dawY = event.clientY - daw.getBoundingClientRect().top;
 
                 let time = Math.floor((dawX - 6) / 18);
                 let tone = Math.floor(17 - (dawY / 10));
@@ -35,7 +35,7 @@
                 if (time >= 0 && time < 16 && tone >= 0 && tone <= 17) {
                     
                     if (timedTones[time].includes(tone)) {
-                        timedTones[time].remove(tone);
+                        timedTones[time].splice(timedTones[time].indexOf(tone), 1);
                     } else {
                         timedTones[time].push(tone);
                     }
@@ -58,8 +58,6 @@
             // https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial
             
             activeTones.forEach((item, tone) => {
-
-                if (!item) { return; }
                 
                 ctx.fillStyle = "hsl(" + (tone*360/17) + " 100% 50%)";
                 ctx.fillRect(0, 170 - 10 * tone, 4, 8);
@@ -110,7 +108,7 @@
             gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + 0.3);
             oscillator.stop(audioContext.currentTime + 0.3);
 
-            activeTones[degree] = null;
+            delete activeTones[degree]; // sets the spot to undefined, meaning it won't be traversed by forEach
 
             repaintDaw();
         }
