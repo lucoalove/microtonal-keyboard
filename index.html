@@ -35,10 +35,12 @@
             
             activeTones.forEach((item, index) => {
 
+                ctx.clearRect(0, 0, daw.width, daw.height);
+
                 if (!item) { return; }
                 
                 ctx.fillStyle = "rgb(200 0 0)";
-                ctx.fillRect(10, 10 + index * 20, 50, 20 + index * 20);
+                ctx.fillRect(10, 0 + index * 10, 50, 5 + index * 10);
             });
         }
         
