@@ -13,40 +13,72 @@
 
         const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
-        function playTone(degree) {
-            
+        // initialize all oscillators and gainNodes for each degree
+        tones = [];
+        
+        for (let degree=0; degree<=17; degree++) {
+
             const oscillator = audioContext.createOscillator();
             const gainNode = audioContext.createGain();
-            
+
             oscillator.connect(gainNode);
             gainNode.connect(audioContext.destination);
             
-            oscillator.type = "square"; // You can change the type: sine, square, triangle, sawtooth
+            oscillator.type = "sine"; // sine, square, triangle, sawtooth
             oscillator.frequency.value = 220 * Math.pow(2, degree/17.0);
             
-            // ensure gain is set to 0 after the duration to prevent hanging notes
+            tones.push({ oscillator, gainNode });
+        }
+
+        
+        
+        function startTone(degree) {
+
+            const oscillator = tones[degree][0];
+            const gainNode = tones[degree][1];
+            
             gainNode.gain.setValueAtTime(0, audioContext.currentTime);
             gainNode.gain.linearRampToValueAtTime(1, audioContext.currentTime + 0.02);
-            gainNode.gain.linearRampToValueAtTime(1, audioContext.currentTime + 0.2);
-            gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + 0.3);
             
             oscillator.start(audioContext.currentTime);
+        }
+
+        function stopTone(degree) {
+
+            const oscillator = tones[degree][0];
+            const gainNode = tones[degree][1];
+            
+            gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + 0.3);
+            
             oscillator.stop(audioContext.currentTime + 0.3);
         }
 
         document.addEventListener("keydown", function(event) {
                 
             switch (event.key) {
-                case "a": playTone(0); break;
-                case "s": playTone(3); break;
-                case "d": playTone(6); break;
-                case "f": playTone(7); break;
-                case "g": playTone(10); break;
-                case "h": playTone(13); break;
-                case "j": playTone(16); break;
-                case "k": playTone(17); break;
+                case "a": startTone(0); break;
+                case "s": startTone(3); break;
+                case "d": startTone(6); break;
+                case "f": startTone(7); break;
+                case "g": startTone(10); break;
+                case "h": startTone(13); break;
+                case "j": startTone(16); break;
+                case "k": startTone(17); break;
             }
-            
+        });
+
+        document.addEventListener("keyup", function(event) {
+                
+            switch (event.key) {
+                case "a": stopTone(0); break;
+                case "s": stopTone(3); break;
+                case "d": stopTone(6); break;
+                case "f": stopTone(7); break;
+                case "g": stopTone(10); break;
+                case "h": stopTone(13); break;
+                case "j": stopTone(16); break;
+                case "k": stopTone(17); break;
+            }
         });
     </script>
 </head>
