@@ -13,7 +13,9 @@
 
         async function startAudio(button) {
             await Tone.start();
-            button.display = "none";
+            context.lookAhead = 0;
+            
+            button.style.display = "none";
         }
 
         function pitch(degree) {
