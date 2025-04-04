@@ -26,6 +26,10 @@
             if (playbackInterval) {
                 
                 clearInterval(playbackInterval);
+
+                for (let tone=0; tone<=17; tone++) {
+                    stopTone(tone);
+                }
                 
                 playbackInterval = null;
                 playbackTime = -1;
@@ -43,11 +47,11 @@
                     }
 
                     for (let tone=0; tone<=17; tone++) {
-                        
-                        stopTone(tone);
 
-                        if (timedTones[playbackTime].includes(tone)) {
+                        if (timedTones[playbackTime].includes(tone) && !activeTones[degree]) {
                             startTone(tone);
+                        } else {
+                            stopTone(tone);
                         }
                     }
 
