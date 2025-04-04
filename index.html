@@ -11,11 +11,22 @@
     
     <script>
 
+        function initDaw() {
+            
+            const canvas = document.getElementById("daw");
+
+            if (canvas.getContext) {
+                const ctx = canvas.getContext("2d");
+                ctx.fillStyle = "rgb(200 0 0)";
+                ctx.fillRect(10, 10, 50, 50);
+            }
+
+            // should be done in timer loop or something
+        }
+
         const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
         var activeTones = [];
-
-        
         
         function startTone(degree) {
 
@@ -101,9 +112,13 @@
     </script>
 </head>
 
-<body>
+<body onload="initDaw();">
 
     <a href="https://github.com/lucoalove/microtonal-keyboard/">repo</a>
+
+    <canvas id="daw" width="300" height="300">
+        Your browser does not support canvas elements :(
+    </canvas>
 
     use keybort
 
