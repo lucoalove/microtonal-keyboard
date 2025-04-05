@@ -13,6 +13,7 @@
     <script>
 
         const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const base64Lookup = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789*()";
 
         var timedTones = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []];
         var activeTones = [];
@@ -110,7 +111,6 @@
                 }
 
                 // update url (Base-64 encoding)
-                // ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789*()
 
                 let encoded = "";
                 
@@ -122,7 +122,7 @@
                         nibble += timedTones[Math.floor((i + off) / 18)].includes((i + off) % 18) ? "1" : "0";
                     }
 
-                    encoded += nibble;
+                    encoded += base64Lookup[parseInt(nibble, 2)];
                 }
 
                 window.history.pushState({}, "", "?d=" + encoded);
