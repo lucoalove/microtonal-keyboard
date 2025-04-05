@@ -7,7 +7,7 @@
 
     <style>
         body { font-family: sans-serif; }
-        #daw { width: 900px; image-rendering: pixelated; display: block; margin: auto; }
+        #daw { width: 600px; image-rendering: pixelated; display: block; margin: auto; }
     </style>
     
     <script>
@@ -86,9 +86,9 @@
             daw.addEventListener("click", function(event) {
 
                 let rect = daw.getBoundingClientRect();
-                let scale = (rect.right - rect.left) / 300.0;
+                let scale = (rect.right - rect.left) / daw.width;
 
-                // must translate and scale down to native resolution (300x200) to be in dawSpace
+                // must translate and scale down to be in dawSpace
                 let dawX = (event.clientX - rect.left) / scale;
                 let dawY = (event.clientY - rect.top) / scale;
 
@@ -310,7 +310,7 @@
 
     <a href="https://github.com/lucoalove/microtonal-keyboard/">repo</a>
 
-    <canvas id="daw" width="300" height="200">
+    <canvas id="daw" width="200" height="200">
         Your browser does not support canvas elements :(
     </canvas>
 
