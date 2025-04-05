@@ -80,10 +80,6 @@
                 }
             }
 
-            // var array = new Uint8Array(100);
-            // array[10] = 256;
-            // array[10] === 0 // true
-
             // set up click functionality
             daw.addEventListener("click", function(event) {
 
@@ -113,15 +109,23 @@
                     }
                 }
 
-                // update url
-                let data = "";
+                // update url (Base-64 encoding)
+                // ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789*()
 
-                for (let i = 0; i < 16 * 18; i++) {
+                let encoded = "";
+                
+                for (let i = 0; i < 16 * 18; i += 4) {
 
-                    data += timedTones[Math.floor(i / 18)].includes(i % 18) ? "1" : "0";
+                    let nibble = "";
+
+                    for (let off = 0; off < 4; off++) {
+                        nibble += timedTones[Math.floor((i + off) / 18)].includes((i + off) % 18) ? "1" : "0";
+                    }
+
+                    encoded += nibble;
                 }
 
-                window.history.pushState({}, "", "?d=" + data);
+                window.history.pushState({}, "", "?d=" + encoded);
 
                 // repaint
                 repaintDaw();
