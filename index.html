@@ -15,12 +15,22 @@
         const audioContext = new (window.AudioContext || window.webkitAudioContext)();
         const base64Lookup = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789()";
 
-        var timedTones = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []];
+        var timedTones = [];
         var activeTones = [];
         var daw;
 
         var playbackInterval = null;
         var playbackTime = -1;
+
+        function clear() {
+
+            for (let time=0; time<16; time++) {
+                timedTones[time] = [];
+            }
+
+            repaintDaw();
+            encodeToUrl();
+        }
 
         function encodeToUrl() {
 
@@ -115,6 +125,7 @@
             daw = document.getElementById("daw");
 
             // load in data from url
+            clear();
             decodeFromUrl();
 
             // set up click functionality
@@ -342,7 +353,10 @@
         Your browser does not support canvas elements :(
     </canvas>
 
-    <button type="button" onclick="togglePlayback();">Play/Pause</button>
+    <div style="border: 1px solid black; padding: 0.5em; gap: 0.5em; display: flex;">
+        <button type="button" onclick="togglePlayback();">Play/Pause</button>
+        <button type="button" onclick="clear();">Clear</button>
+    </div>
 
     <p>use keybort numbers/letters for notes. space to Play/Pause</p>
     <p>planned:</p>
