@@ -125,7 +125,9 @@
             daw = document.getElementById("daw");
 
             // load in data from url
-            clear();
+            for (let time=0; time<16; time++) {
+                timedTones[time] = [];
+            }
             decodeFromUrl();
 
             // set up click functionality
