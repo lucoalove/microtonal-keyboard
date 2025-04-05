@@ -6,8 +6,8 @@
     <script src="https://unpkg.com/tone@15.0.4/build/Tone.js"></script>
 
     <style>
-        body { font-family: sans-serif; }
-        #daw { width: 600px; image-rendering: pixelated; display: block; margin: auto; }
+        body { font-family: sans-serif; width: 600px; margin: auto; }
+        #daw { display: block; width: 100%; image-rendering: pixelated; }
     </style>
     
     <script>
@@ -315,6 +315,8 @@
     <canvas id="daw" width="200" height="200">
         Your browser does not support canvas elements :(
     </canvas>
+
+    <button type="button" onclick="togglePlayback();">Play/Pause</button>
 
     <p>use keybort numbers/letters for notes. space to Play/Pause</p>
     <p>planned:</p>
