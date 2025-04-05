@@ -26,15 +26,20 @@
 
             let encoded = "";
                 
-            for (let i = 0; i < 16 * 18; i += 4) {
+            for (let i = 0; i < 16 * 18; i += 6) {
 
-                let nibble = "";
+                let bit6 = "";
 
-                for (let off = 0; off < 4; off++) {
-                    nibble += timedTones[Math.floor((i + off) / 18)].includes((i + off) % 18) ? "1" : "0";
+                for (let off = 0; off < 6; off++) {
+
+                    if (Math.floor((i + off) / 18) >= timedTones.length) { // inefficient but w/e
+                        continue;
+                    }
+                    
+                    bit6 += timedTones[Math.floor((i + off) / 18)].includes((i + off) % 18) ? "1" : "0";
                 }
 
-                encoded += base64Lookup[parseInt(nibble, 2)];
+                encoded += base64Lookup[parseInt(bit6, 2)];
             }
 
             window.history.pushState({}, "", "?d=" + encoded);
@@ -48,10 +53,10 @@
 
                 let decoded = "";
                 
-                for (let i = 0; i < Math.min(initData.length, 16 * 18 / 4); i++) {
+                for (let i = 0; i < Math.min(initData.length, 16 * 18 / 6); i++) {
 
-                    // add the nibble
-                    decoded += (base64Lookup.indexOf(initData[i]) >>> 0).toString(2).padStart(4, "0");
+                    // add the bit6
+                    decoded += (base64Lookup.indexOf(initData[i]) >>> 0).toString(2).padStart(6, "0");
                 }
 
                 for (let i = 0; i < Math.min(decoded.length, 16 * 18); i++) {
