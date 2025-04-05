@@ -73,11 +73,11 @@
 
             if (initData) {
                 
-                for (let i = 0; i < Math.min(initData.length, 16 * 18); i++) {
+                for (let i = 0; i < Math.min(initData.length, 16 * 18 / 4); i++) {
                     
-                    if (initData[i] == "1") {
-                        timedTones[Math.floor(i / 18)].push(i % 18);
-                    }
+                    let nibble = (base64Lookup.indexOf(initData[i]) >>> 0).toString(2);
+
+                    console.log(nibble);
                 }
             }
 
