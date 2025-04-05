@@ -237,8 +237,8 @@
             const oscillator = activeTones[degree][0];
             const gainNode = activeTones[degree][1];
             
-            gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + 0.3);
-            oscillator.stop(audioContext.currentTime + 0.3);
+            gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + 0.7);
+            oscillator.stop(audioContext.currentTime + 0.7);
 
             delete activeTones[degree]; // sets the spot to undefined, meaning it won't be traversed by forEach
             repaintDaw();
