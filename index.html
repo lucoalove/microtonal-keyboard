@@ -22,11 +22,10 @@
         var playbackInterval = null;
         var playbackTime = -1;
 
-        function clear() {
+        function clearDaw() {
 
             for (let time=0; time<16; time++) {
                 timedTones[time] = [];
-                console.log(timedTones[time]);
             }
 
             repaintDaw();
@@ -358,7 +357,7 @@
 
     <div style="border: 1px solid black; padding: 0.5em; gap: 0.5em; display: flex;">
         <button type="button" onclick="togglePlayback();">Play/Pause</button>
-        <button type="button" onclick="clear();">Clear</button>
+        <button type="button" onclick="clearDaw();">Clear</button>
     </div>
 
     <p>use keybort numbers/letters for notes. space to Play/Pause</p>
