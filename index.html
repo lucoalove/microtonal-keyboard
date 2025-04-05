@@ -9,7 +9,7 @@
         body { font-family: sans-serif; width: 600px; margin: auto; }
         #daw { display: block; width: 100%; image-rendering: pixelated; }
         #tools { border: 1px solid black; display: flex; }
-        #tools > * { padding: 1em; border-right: 1px solid black; background: none; }
+        #tools > * { padding: 1em; background: none; }
     </style>
     
     <script>
@@ -348,6 +348,7 @@
         });
 
         document.addEventListener("popstate", (event) => {
+            console.log("you went back in history");
             decodeFromUrl();
         });
     </script>
@@ -365,7 +366,7 @@
         <button type="button" onclick="togglePlayback();">Play/Pause</button>
         <button type="button" onclick="clearDaw();">Clear</button>
         <div>
-            <label for="timedtonecount">Total Notes:</label><input type="text" id="timedtonecount">
+            <label for="timedtonecount">Total Notes:</label> <input type="text" id="timedtonecount" value="16">
         </div>
     </div>
 
