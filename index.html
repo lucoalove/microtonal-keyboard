@@ -28,8 +28,19 @@
         var playbackInterval = null;
         var playbackTime = -1;
 
+        function setTonesPerBar(value) {
+
+            let int = parseInt(value);
+
+            if (int && int > 0) {
+                tonesPerBar = int;
+                clearDaw();
+            }
+        }
+
         function clearDaw() {
 
+            timedTones = [];
             for (let time = 0; time < tonesPerBar * barCount; time++) {
                 timedTones[time] = [];
             }
@@ -382,7 +393,7 @@
         <button type="button" onclick="togglePlayback();">Play/Pause</button>
         <button type="button" onclick="clearDaw();">Clear</button>
         <div>
-            <label for="timedtonecount">Total Notes:</label> <input type="text" id="timedtonecount" value="16">
+            <label for="tonesperbar">Notes Per Bar:</label> <input type="text" id="tonesperbar" onchange="setTonesPerBar(this.value);" value="16">
         </div>
     </div>
 
