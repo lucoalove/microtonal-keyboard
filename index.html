@@ -228,6 +228,8 @@
             });
 
             // timed tone cells
+            const cellWidth = Math.floor(180 / tonesPerBar);
+            
             for (let tone=0; tone<=17; tone++) {
                 for (let time=0; time<tonesPerBar; time++) {
 
@@ -240,9 +242,9 @@
                         }
 
                         if (timedTones[time+1] && timedTones[time+1].includes(tone)) {
-                            ctx.fillRect(6 + Math.floor(180 * time / tonesPerBar), 170 - 10 * tone, Math.ceil(180 / tonesPerBar), 9); // connect to following tone if possible
+                            ctx.fillRect(6 + cellWidth * time, 170 - 10 * tone, cellWidth, 9); // connect to following tone if possible
                         } else {
-                            ctx.fillRect(6 + Math.floor(180 * time / tonesPerBar), 170 - 10 * tone, Math.ceil(180 / tonesPerBar) - 1, 9);
+                            ctx.fillRect(6 + cellWidth * time, 170 - 10 * tone, cellWidth - 1, 9);
                         }
                         
                     } else {
@@ -253,14 +255,14 @@
                             ctx.fillStyle = "#222";
                         }
 
-                        ctx.fillRect(6 + Math.floor(180 * time / tonesPerBar), 170 - 10 * tone, Math.ceil(180 / tonesPerBar) - 1, 9);
+                        ctx.fillRect(6 + cellWidth * time, 170 - 10 * tone, cellWidth - 1, 9);
                     }
                 }
             }
 
             // playback cursor
             ctx.fillStyle = "white";
-            ctx.fillRect(6 + Math.floor(180 * playbackTime / tonesPerBar), 180, Math.ceil(180 / tonesPerBar) - 1, 9);
+            ctx.fillRect(6 + cellWidth * playbackTime, 180, cellWidth - 1, 9);
         }
 
         function testTone(degree) {
