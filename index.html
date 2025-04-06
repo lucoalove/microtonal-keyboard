@@ -113,14 +113,12 @@
 
                 // load metadata (rn just tones per bar)
                 setTonesPerBar(parseInt(decoded.substring(0, 6), 2), false);
-
-                // initialize timed tones
-                clearDaw(false);
+                document.getElementById("tonesperbar").value = tonesPerBar;
 
                 // load timed tones (REMEMBER TO OFFSET BY METADATA LENGTH)
-                for (let i = 6; i < Math.min(decoded.length, tonesPerBar * toneCount + 6); i++) {
+                for (let i = 0; i < Math.min(decoded.length - 6, tonesPerBar * toneCount); i++) {
                     
-                    if (decoded[i] == "1") {
+                    if (decoded[i - 6] == "1") {
                         timedTones[Math.floor(i / 18)].push(i % 18);
                     }
                 }
