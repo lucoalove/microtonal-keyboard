@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Microtonal Keyboard</title>
-    <script src="https://unpkg.com/tone@15.0.4/build/Tone.js"></script>
+
+<!--     really need to do some code separation -->
 
     <style>
         body { font-family: sans-serif; width: 600px; margin: auto; background: black; color: #ddd; }
@@ -179,7 +180,7 @@
                 let dawX = (event.clientX - rect.left) / scale;
                 let dawY = (event.clientY - rect.top) / scale;
 
-                let time = Math.floor((dawX - 6) / 10);
+                let time = Math.floor((dawX - 6) / (180 / tonesPerBar));
                 let tone = Math.ceil(17 - (dawY / 10));
 
                 if (time >= 0 && time < tonesPerBar && tone >= 0 && tone <= 17) {
@@ -239,9 +240,9 @@
                         }
 
                         if (timedTones[time+1] && timedTones[time+1].includes(tone)) {
-                            ctx.fillRect(6 + 10 * time, 170 - 10 * tone, 180 / tonesPerBar, 8); // connect to following tone if possible
+                            ctx.fillRect(6 + (180 / tonesPerBar) * time, 170 - 10 * tone, 180 / tonesPerBar, 8); // connect to following tone if possible
                         } else {
-                            ctx.fillRect(6 + 10 * time, 170 - 10 * tone, (180 / tonesPerBar) - 2, 8);
+                            ctx.fillRect(6 + (180 / tonesPerBar) * time, 170 - 10 * tone, (180 / tonesPerBar) - 2, 8);
                         }
                         
                     } else {
@@ -252,14 +253,14 @@
                             ctx.fillStyle = "#222";
                         }
 
-                        ctx.fillRect(6 + 10 * time, 170 - 10 * tone, (180 / tonesPerBar) - 2, 8);
+                        ctx.fillRect(6 + (180 / tonesPerBar) * time, 170 - 10 * tone, (180 / tonesPerBar) - 2, 8);
                     }
                 }
             }
 
             // playback cursor
             ctx.fillStyle = "white";
-            ctx.fillRect(6 + 10 * playbackTime, 180, 8, 8);
+            ctx.fillRect(6 + (180 / tonesPerBar) * playbackTime, 180, (180 / tonesPerBar) - 2, 8);
         }
 
         function testTone(degree) {
