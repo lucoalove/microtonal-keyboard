@@ -21,12 +21,16 @@
         var activeTones = [];
         var daw;
 
+        var tonesPerBar = 16;
+        var barCount = 1;
+        var toneCount = 18; // in 17-tet
+
         var playbackInterval = null;
         var playbackTime = -1;
 
         function clearDaw() {
 
-            for (let time=0; time<16; time++) {
+            for (let time = 0; time < tonesPerBar * barCount; time++) {
                 timedTones[time] = [];
             }
 
@@ -69,6 +73,10 @@
 
                     // add the bit6
                     decoded += (base64Lookup.indexOf(initData[i]) >>> 0).toString(2).padStart(6, "0");
+                }
+
+                for (let time = 0; time < tonesPerBar * barCount; time++) {
+                    timedTones[time] = [];
                 }
 
                 for (let i = 0; i < Math.min(decoded.length, 16 * 18); i++) {
@@ -127,9 +135,6 @@
             daw = document.getElementById("daw");
 
             // load in data from url
-            for (let time=0; time<16; time++) {
-                timedTones[time] = [];
-            }
             decodeFromUrl();
 
             // set up click functionality
