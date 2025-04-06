@@ -105,6 +105,7 @@
 
                 // load metadata (rn just tones per bar)
                 tonesPerBar = parseInt(decoded.substring(0, 6), 2);
+                cellWidth = Math.floor(180 / tonesPerBar);
 
                 // initialize timed tones
                 timedTones = [];
@@ -126,6 +127,8 @@
                     timedTones[time] = [];
                 }
             }
+
+            repaintDaw();
         }
 
         function togglePlayback() {
@@ -175,7 +178,7 @@
 
             daw = document.getElementById("daw");
 
-            // load in data from url
+            // load in data from url and repaint
             decodeFromUrl();
 
             // set up click functionality
@@ -213,8 +216,6 @@
                 // repaint
                 repaintDaw();
             });
-
-            repaintDaw();
         }
 
         async function repaintDaw() {
