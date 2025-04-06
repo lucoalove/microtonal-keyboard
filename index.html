@@ -6,10 +6,12 @@
     <script src="https://unpkg.com/tone@15.0.4/build/Tone.js"></script>
 
     <style>
-        body { font-family: sans-serif; width: 600px; margin: auto; }
+        body { font-family: sans-serif; width: 600px; margin: auto; background: black; color: #ddd; }
         #daw { display: block; width: 100%; image-rendering: pixelated; }
         #tools { border: 1px solid black; display: flex; }
         #tools > * { padding: 1em; background: none; }
+        button { border: 2px outset grey; color: inherit; }
+        input[type="text"] { background: none; color: inherit; border: 1px solid grey; }
     </style>
     
     <script>
@@ -28,13 +30,21 @@
         var playbackInterval = null;
         var playbackTime = -1;
 
-        function setTonesPerBar(value) {
+        function setTonesPerBar(input) {
 
-            let int = parseInt(value);
+            let value = parseInt(input.value);
 
-            if (int && int > 0) {
-                tonesPerBar = int;
-                clearDaw();
+            if (value && value > 0 && value != tonesPerBar) {
+
+                if (value > 32) {
+                    alert("Notes per bar cannot be greater than 32!");
+                    input.value = tonesPerBar;
+                } else {
+                    tonesPerBar = value;
+                    clearDaw();
+                }
+            } else {
+                input.value = tonesPerBar;
             }
         }
 
@@ -229,9 +239,9 @@
                         }
 
                         if (timedTones[time+1] && timedTones[time+1].includes(tone)) {
-                            ctx.fillRect(6 + 10 * time, 170 - 10 * tone, 10, 8); // connect to following tone if possible
+                            ctx.fillRect(6 + 10 * time, 170 - 10 * tone, tonesPerBar / 160, 8); // connect to following tone if possible
                         } else {
-                            ctx.fillRect(6 + 10 * time, 170 - 10 * tone, 8, 8);
+                            ctx.fillRect(6 + 10 * time, 170 - 10 * tone, (tonesPerBar / 160) - 2, 8);
                         }
                         
                     } else {
@@ -242,7 +252,7 @@
                             ctx.fillStyle = "#222";
                         }
 
-                        ctx.fillRect(6 + 10 * time, 170 - 10 * tone, 8, 8);
+                        ctx.fillRect(6 + 10 * time, 170 - 10 * tone, (tonesPerBar / 160) - 2, 8);
                     }
                 }
             }
@@ -393,7 +403,7 @@
         <button type="button" onclick="togglePlayback();">Play/Pause</button>
         <button type="button" onclick="clearDaw();">Clear</button>
         <div>
-            <label for="tonesperbar">Notes Per Bar:</label> <input type="text" id="tonesperbar" onchange="setTonesPerBar(this.value);" value="16">
+            <label for="tonesperbar">Notes Per Bar:</label> <input type="text" id="tonesperbar" onchange="setTonesPerBar(this);" value="16">
         </div>
     </div>
 
