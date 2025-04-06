@@ -67,23 +67,33 @@
 
             if (initData) {
 
+                // decode data to series of 1 and 0
                 let decoded = "";
                 
-                for (let i = 0; i < Math.min(initData.length, 16 * 18 / 6); i++) {
+                for (let i = 0; i < initData.length; i++) {
 
                     // add the bit6
                     decoded += (base64Lookup.indexOf(initData[i]) >>> 0).toString(2).padStart(6, "0");
                 }
 
+                // initialize timed tones
+                timedTones = [];
                 for (let time = 0; time < tonesPerBar * barCount; time++) {
                     timedTones[time] = [];
                 }
 
+                // load timed tones
                 for (let i = 0; i < Math.min(decoded.length, 16 * 18); i++) {
                     
                     if (decoded[i] == "1") {
                         timedTones[Math.floor(i / 18)].push(i % 18);
                     }
+                }
+                
+            } else {
+
+                for (let time = 0; time < tonesPerBar * barCount; time++) {
+                    timedTones[time] = [];
                 }
             }
         }
