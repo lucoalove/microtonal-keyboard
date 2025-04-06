@@ -8,7 +8,7 @@
     <style>
         body { font-family: sans-serif; width: 600px; margin: auto; background: black; color: #ddd; }
         #daw { display: block; width: 100%; image-rendering: pixelated; }
-        #tools { border: 1px solid black; display: flex; }
+        #tools { display: flex; }
         #tools > * { padding: 1em; background: none; }
         button { border: 2px outset grey; color: inherit; }
         input[type="text"] { background: none; color: inherit; border: 1px solid grey; }
@@ -239,9 +239,9 @@
                         }
 
                         if (timedTones[time+1] && timedTones[time+1].includes(tone)) {
-                            ctx.fillRect(6 + 10 * time, 170 - 10 * tone, tonesPerBar / 160, 8); // connect to following tone if possible
+                            ctx.fillRect(6 + 10 * time, 170 - 10 * tone, 180 / tonesPerBar, 8); // connect to following tone if possible
                         } else {
-                            ctx.fillRect(6 + 10 * time, 170 - 10 * tone, (tonesPerBar / 160) - 2, 8);
+                            ctx.fillRect(6 + 10 * time, 170 - 10 * tone, (180 / tonesPerBar) - 2, 8);
                         }
                         
                     } else {
@@ -252,7 +252,7 @@
                             ctx.fillStyle = "#222";
                         }
 
-                        ctx.fillRect(6 + 10 * time, 170 - 10 * tone, (tonesPerBar / 160) - 2, 8);
+                        ctx.fillRect(6 + 10 * time, 170 - 10 * tone, (180 / tonesPerBar) - 2, 8);
                     }
                 }
             }
