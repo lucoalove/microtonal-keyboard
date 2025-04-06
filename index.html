@@ -118,7 +118,7 @@
                 // load timed tones (REMEMBER TO OFFSET BY METADATA LENGTH)
                 for (let i = 0; i < Math.min(decoded.length - 6, tonesPerBar * toneCount); i++) {
                     
-                    if (decoded[i - 6] == "1") {
+                    if (decoded[i + 6] == "1") {
                         timedTones[Math.floor(i / 18)].push(i % 18);
                     }
                 }
