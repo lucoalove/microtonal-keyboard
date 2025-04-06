@@ -42,7 +42,7 @@
 
             let encoded = "";
                 
-            for (let i = 0; i < 16 * 18; i += 6) {
+            for (let i = 0; i < tonesPerBar * toneCount; i += 6) {
 
                 let bit6 = "";
 
@@ -83,7 +83,7 @@
                 }
 
                 // load timed tones
-                for (let i = 0; i < Math.min(decoded.length, 16 * 18); i++) {
+                for (let i = 0; i < Math.min(decoded.length, tonesPerBar * toneCount); i++) {
                     
                     if (decoded[i] == "1") {
                         timedTones[Math.floor(i / 18)].push(i % 18);
@@ -119,7 +119,7 @@
 
                     playbackTime++;
 
-                    if (playbackTime >= 16) {
+                    if (playbackTime >= tonesPerBar * barCount) {
                         playbackTime = 0;
                     }
 
@@ -128,8 +128,9 @@
                         if (timedTones[playbackTime].includes(tone)) {
                             startTone(tone);
                         }
-                        
-                        if (!timedTones[(playbackTime+1) % 16].includes(tone)) {
+
+                        // if tone doesn't exist in following time, stop it now
+                        if (!timedTones[(playbackTime + 1) % (tonesPerBar * barCount)].includes(tone)) {
                             stopTone(tone);
                         }
                     }
@@ -160,7 +161,7 @@
                 let time = Math.floor((dawX - 6) / 10);
                 let tone = Math.ceil(17 - (dawY / 10));
 
-                if (time >= 0 && time < 16 && tone >= 0 && tone <= 17) {
+                if (time >= 0 && time < tonesPerBar && tone >= 0 && tone <= 17) {
                     
                     if (timedTones[time].includes(tone)) {
                         
@@ -206,7 +207,7 @@
 
             // timed tone cells
             for (let tone=0; tone<=17; tone++) {
-                for (let time=0; time<16; time++) {
+                for (let time=0; time<tonesPerBar; time++) {
 
                     if (timedTones[time].includes(tone)) {
 
