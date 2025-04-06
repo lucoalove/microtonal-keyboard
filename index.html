@@ -32,7 +32,7 @@
         var playbackInterval = null;
         var playbackTime = -1;
 
-        function setTonesPerBar(input) {
+        function setTonesPerBarViaInput(input) {
 
             let value = parseInt(input.value);
 
@@ -42,24 +42,32 @@
                     alert("Notes per bar cannot be greater than 32!");
                     input.value = tonesPerBar;
                 } else {
-                    tonesPerBar = value;
-                    cellWidth = Math.floor(180 / tonesPerBar);
-                    clearDaw();
+                    setTonesPerBar(value);
                 }
+                
             } else {
                 input.value = tonesPerBar;
             }
         }
 
-        function clearDaw() {
+        function setTonesPerBar(value, triggerRepaint = true) {
+
+            tonesPerBar = value;
+            cellWidth = Math.floor(180 / tonesPerBar);
+            clearDaw(triggerRepaint);
+        }
+
+        function clearDaw(triggerRepaint = true) {
 
             timedTones = [];
             for (let time = 0; time < tonesPerBar * barCount; time++) {
                 timedTones[time] = [];
             }
 
-            repaintDaw();
-            encodeToUrl();
+            if (triggerRepaint) {
+                repaintDaw();
+                encodeToUrl();
+            }
         }
 
         function encodeToUrl() {
@@ -104,14 +112,10 @@
                 }
 
                 // load metadata (rn just tones per bar)
-                tonesPerBar = parseInt(decoded.substring(0, 6), 2);
-                cellWidth = Math.floor(180 / tonesPerBar);
+                setTonesPerBar(parseInt(decoded.substring(0, 6), 2), false);
 
                 // initialize timed tones
-                timedTones = [];
-                for (let time = 0; time < tonesPerBar * barCount; time++) {
-                    timedTones[time] = [];
-                }
+                clearDaw(false);
 
                 // load timed tones (REMEMBER TO OFFSET BY METADATA LENGTH)
                 for (let i = 6; i < Math.min(decoded.length, tonesPerBar * toneCount + 6); i++) {
@@ -413,7 +417,7 @@
         <button type="button" onclick="togglePlayback();">Play/Pause</button>
         <button type="button" onclick="clearDaw();">Clear</button>
         <div>
-            <label for="tonesperbar">Notes Per Bar:</label> <input type="text" id="tonesperbar" onchange="setTonesPerBar(this);" value="16">
+            <label for="tonesperbar">Notes Per Bar:</label> <input type="text" id="tonesperbar" onchange="setTonesPerBarViaInput(this);" value="16">
         </div>
     </div>
 
